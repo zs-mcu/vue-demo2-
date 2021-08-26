@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btnPost">发起post请求</button>
+    <button id="btnGet">发起get请求</button>
+    <script src="./lib/axios.js"></script>
+    <script>
+        document.querySelector('#btnPost').addEventListener('click',async function(){
+            //如果调用某个方法的返回值是 Promise实例，则前面可以添加await! 加上await后返回的就是一个结果
+            //await 只能用在被 async ’修饰‘ 的方法中
+            //使用解构赋值，将右侧的大对象中的 解构出data 属性
+            //解构赋值的时候使用：进行从命名
+            const{ data: res } = await axios({
+                method: 'POST',
+                url: 'http://www.liulongbin.top:3006/api/post',
+                data: {
+                    name: 'zs',
+                    age: 20
+                }
+            })
+            //解构出来的值是服务器返回的值，这里的data是返回值中的数据值存储的地方
+            console.log(res.data);
+        })
+
+        document.querySelector('#btnGet').addEventListener('click',async function(){
+            const{data: res } = await axios({
+                method: 'GET',
+                url: 'http://www.liulongbin.top:3006/api/getbooks'
+            })
+            console.log(res.data)
+        })
+    </script>
+</body>
+</html>
